@@ -176,13 +176,13 @@ export function changeQuestionTypeById(
     return questions.map((question) =>
         question.id === targetId
             ? {
-                  ...question,
-                  type: newQuestionType,
-                  options:
-                      newQuestionType === "multiple_choice_question"
-                          ? question.options
-                          : []
-              }
+                ...question,
+                type: newQuestionType,
+                options:
+                    newQuestionType === "multiple_choice_question"
+                        ? question.options
+                        : []
+            }
             : question
     );
 }
@@ -206,14 +206,14 @@ export function editOption(
     return questions.map((question) =>
         question.id === targetId
             ? {
-                  ...question,
-                  options:
-                      targetOptionIndex === -1
-                          ? [...question.options, newOption]
-                          : question.options.map((option, index) =>
-                                index === targetOptionIndex ? newOption : option
-                            )
-              }
+                ...question,
+                options:
+                    targetOptionIndex === -1
+                        ? [...question.options, newOption]
+                        : question.options.map((option, index) =>
+                              index === targetOptionIndex ? newOption : option
+                          )
+            }
             : question
     );
 }
