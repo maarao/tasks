@@ -33,7 +33,7 @@ export function findQuestion(
     questions: Question[],
     id: number
 ): Question | null {
-    return questions.find((question) => question.id === id) || null;
+    return questions.find((question: Question) => question.id === id) || null;
 }
 
 /**
@@ -41,7 +41,7 @@ export function findQuestion(
  * with the given `id`.
  */
 export function removeQuestion(questions: Question[], id: number): Question[] {
-    return questions.filter((question) => question.id !== id);
+    return questions.filter((question: Question) => question.id !== id);
 }
 
 /***
@@ -49,7 +49,7 @@ export function removeQuestion(questions: Question[], id: number): Question[] {
  * questions, as an array.
  */
 export function getNames(questions: Question[]): string[] {
-    return questions.map((question) => question.name);
+    return questions.map((question: Question) => question.name);
 }
 
 /***
@@ -57,7 +57,8 @@ export function getNames(questions: Question[]): string[] {
  */
 export function sumPoints(questions: Question[]): number {
     return questions.reduce(
-        (totalPoints, question) => totalPoints + question.points,
+        (totalPoints: number, question: Question) =>
+            totalPoints + question.points,
         0
     );
 }
@@ -89,7 +90,7 @@ id,name,options,points,published
 export function toCSV(questions: Question[]): string {
     const header = "id,name,options,points,published";
     const rows = questions.map(
-        (question) =>
+        (question: Question) =>
             `${question.id},${question.name},${question.options.length},${question.points},${question.published}`
     );
     return `${header}\n${rows.join("\n")}`;
@@ -101,7 +102,7 @@ export function toCSV(questions: Question[]): string {
  * making the `text` an empty string, and using false for both `submitted` and `correct`.
  */
 export function makeAnswers(questions: Question[]): Answer[] {
-    return questions.map((question) => ({
+    return questions.map((question: Question) => ({
         questionId: question.id,
         text: "",
         submitted: false,
@@ -114,7 +115,10 @@ export function makeAnswers(questions: Question[]): Answer[] {
  * each question is now published, regardless of its previous published status.
  */
 export function publishAll(questions: Question[]): Question[] {
-    return questions.map((question) => ({ ...question, published: true }));
+    return questions.map((question: Question) => ({
+        ...question,
+        published: true
+    }));
 }
 
 /***
@@ -122,7 +126,9 @@ export function publishAll(questions: Question[]): Question[] {
  * are the same type. They can be any type, as long as they are all the SAME type.
  */
 export function sameType(questions: Question[]): boolean {
-    return false;
+    return questions.every(
+        (question: Question) => question.type === questions[0].type
+    );
 }
 
 /***
