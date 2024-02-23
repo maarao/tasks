@@ -173,17 +173,17 @@ export function changeQuestionTypeById(
     targetId: number,
     newQuestionType: QuestionType
 ): Question[] {
+    const changeTypeAndOptions = (question: Question): Question => ({
+        ...question,
+        type: newQuestionType,
+        options: getNewOptions(question, newQuestionType)
+    });
+
+    const getNewOptions = (question: Question, type: QuestionType): string[] =>
+        type === "multiple_choice_question" ? question.options : [];
+
     return questions.map((question) =>
-        question.id === targetId
-            ? {
-                ...question,
-                type: newQuestionType,
-                options:
-                    newQuestionType === "multiple_choice_question"
-                        ? question.options
-                        : []
-            }
-            : question
+        question.id === targetId ? changeTypeAndOptions(question) : question
     );
 }
 
@@ -203,17 +203,28 @@ export function editOption(
     targetOptionIndex: number,
     newOption: string
 ): Question[] {
+    const updateOptions = (options: string[]): string[] =>
+        targetOptionIndex === -1
+            ? addOption(options, newOption)
+            : replaceOption(options, targetOptionIndex, newOption);
+
+    const addOption = (options: string[], option: string): string[] => [
+        ...options,
+        option
+    ];
+
+    const replaceOption = (
+        options: string[],
+        index: number,
+        option: string
+    ): string[] =>
+        options.map((currentOption, currentIndex) =>
+            currentIndex === index ? option : currentOption
+        );
+
     return questions.map((question) =>
         question.id === targetId
-            ? {
-                ...question,
-                options:
-                    targetOptionIndex === -1
-                        ? [...question.options, newOption]
-                        : question.options.map((option, index) =>
-                              index === targetOptionIndex ? newOption : option
-                          )
-            }
+            ? { ...question, options: updateOptions(question.options) }
             : question
     );
 }
