@@ -26,15 +26,15 @@ export function TwoDice(): JSX.Element {
         if (left === right) {
             setResult(left !== 1 ? "Win!" : "Lose");
         } else {
-            setResult("Lose");
+            setResult("");
         }
     };
 
     return (
         <div>
             <div>Two Dice</div>
-            <span data-testid="leftdie">{leftdie} </span>
-            <span data-testid="rightdie"> {rightdie}</span>
+            <span data-testid="left-die">{leftdie} </span>
+            <span data-testid="right-die"> {rightdie}</span>
             <p></p>
 
             <Button onClick={rollLeft}>Roll Left</Button>
