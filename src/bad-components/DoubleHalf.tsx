@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 
-function Doubler({
-    dhValue,
-    setDhValue
-}: {
+interface DoubleHalfProps {
     dhValue: number;
-    setDhValue: React.Dispatch<React.SetStateAction<number>>;
-}): JSX.Element {
+    setDhValue: (num: number) => void;
+}
+
+function Doubler({ dhValue, setDhValue }: DoubleHalfProps): JSX.Element {
     return <Button onClick={() => setDhValue(2 * dhValue)}>Double</Button>;
 }
 
